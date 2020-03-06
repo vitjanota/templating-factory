@@ -1,0 +1,117 @@
+/* ==================== page definitions ==================== */
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+html {
+  font-family: Open Sans, Arial CE, Helvetica CE, Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: #eeeeee;
+}
+
+a {
+  color: #666666;
+}
+
+a:hover {
+  color: #aaaaaa;
+}
+
+input {
+  outline: none;
+  font-size: 15px;
+  border: none;
+  background-color: #eeeeee;
+  padding: 0 5px 0 5px;
+  width: 35px;
+  text-align: center;
+}
+
+pre {
+  box-shadow: 2px 3px 6px rgba(0,0,0,.3);
+  padding: 10px;
+  background-color: #f6f6f6;
+  font-size: 85%;
+  min-width: 300px;
+}
+
+header {
+  margin: 0 0 0 30px;
+}
+
+.Group {
+  display: flex;
+  margin: 20px 20px 0 20px;
+  border-left: 10px solid #eeeeee;
+}
+
+.Group .GroupTitle {
+  width: 150px;
+  margin: 0 20px 0 0;
+  background-color: #ffffff;
+  padding: 10px 20px 10px 20px;
+}
+
+.Group .GroupContent {
+  display: flex;
+  justify-content: left;
+  width: 900px;
+  background-color: #ffffff;
+  padding: 10px 20px 10px 20px;
+}
+
+.Group .GroupContentItem {
+  margin: 0 15px 0 15px;
+}
+
+.Group .GroupContentItemDescription {
+  width: 100%;
+  text-align: center;
+}
+
+footer {
+  text-align: right;
+  font-size: 80%;
+  margin: 5px 0 0 0;
+  width: 1178px;
+}
+
+/* ==================== templates ==================== */
+
+.Root div {
+  border: 2px solid #dddddd;
+  margin: 0 0 10px 0;
+  padding: 0 10px 0 10px;
+  width: 350px;
+  border-radius: 10px;
+  background-color: #e9f5ff;
+}
+
+/* ==================== Button ==================== */
+
+.Button {
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  margin: 10px;
+  text-align: center;
+  background-color: #dddddd;
+  box-shadow: 2px 3px 4px rgba(0,0,0,.3);
+  border-radius: 10px; 
+}
+
+.Button:before {
+  position: relative;
+  top: 25%;
+  content: "Process data";
+}
+
+.Button:active {
+  box-shadow: 1px 1px 4px rgba(0,0,0,.3);
+  transform: translateY(3px);
+}

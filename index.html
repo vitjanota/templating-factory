@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html lang="cs">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Templating Factory</title>
+		<link href="css/page.css" rel="STYLESHEET" type="text/css" media="screen">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="js/templates.js"></script>
+		<script src="js/page.js"></script>
+	</head>
+
+	<body>
+		<header><h1>Templating Factory</h1></header>
+		<!-- Example 1 -->
+		<section class="Group">
+			<div class="GroupTitle">
+				<h2>Example 1</h2>
+				<p>
+					The simplest setup possible: one template, one data entry
+					<br/><br/>
+					<div class="Button" data-ref="01"></div>
+				</p>
+			</div>
+			<div class="GroupContent">
+				<div class="GroupContentItem">
+					<h3>Data</h3>
+					<div>						
+<pre>{
+  item01: {
+    title: "Hello World!",
+    text: "my templating engine",
+    color: "black"
+  }
+}</pre>
+					</div>
+				</div>
+				<div class="GroupContentItem">
+					<h3>Template(s)</h3>
+<pre>
+&lt;div style="border: 2px solid %%color%%"&gt;
+  &lt;h1&gt;%%title%%&lt;/h1&gt;
+  &lt;p&gt;This content was added by %%text%%.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+					<div id="Root01" class="Root">
+						<!-- template -->
+						<div style="border:2px solid %%color%%">
+							<h1>%%title%%</h1>
+							<p>This content was added by %%text%%.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Example 2 -->
+		<section class="Group">
+			<div class="GroupTitle">
+				<h2>Example 2</h2>
+				<p>
+					Template with repetitive data inside and two data entries to process
+					<br/><br/>
+					<div class="Button" data-ref="02"></div>
+				</p>
+			</div>
+			<div class="GroupContent">
+				<div class="GroupContentItem">
+					<h3>Data</h3>
+					<div>						
+<pre>{
+  item01: {
+    title: "Fruits",
+    text: "Among fruits belong",
+    color: "red",
+    list: {
+      listitem01:{
+        content:"apple",
+        color: "#e0c900"
+      },
+      listitem02:{
+        content:"orange",
+        color: "orange"
+      }
+    }
+  },
+  item02: {
+    title: "Vegetables",
+    text: "Among vegetables belong",
+    color: "green",
+    list: {
+      listitem01:{
+        content:"carrot",
+        color: "orange"
+      },
+      listitem02:{
+        content:"tomato",
+        color: "red"
+      },
+      listitem03:{
+        content:"cucumber",
+        color: "green"
+      }
+    }
+  }
+}</pre>
+					</div>
+				</div>
+				<div class="GroupContentItem">
+					<h3>Template(s)</h3>
+<pre>
+&lt;div style="border: 2px solid %%color%%"&gt;
+  &lt;h1&gt;%%title%%&lt;/h1&gt;
+  &lt;p&gt;%%text%%:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li data-for-each="list"&gt;
+      &lt;span style="color: %%color%%"&gt;%%content%%&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p>and many more.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+					<div id="Root02" class="Root">
+						<!-- template -->
+						<div style="border:2px solid %%color%%">
+							<h1>%%title%%</h1>
+							<p>%%text%%:</p>
+							<ul>
+								<li data-for-each="list"><span style="color: %%color%%">%%content%%</span></li>
+							</ul>
+							<p>and many more.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Example 3 -->
+		<section class="Group">
+			<div class="GroupTitle">
+				<h2>Example 3</h2>
+				<p>
+					Setup with template selection based on data type
+					<br/><br/>
+					<div class="Button" data-ref="03"></div>
+				</p>
+			</div>
+			<div class="GroupContent">
+				<div class="GroupContentItem">
+					<h3>Data</h3>
+					<div>
+<pre>{
+  item01: {
+    title: "Apple",
+    color: "red"
+  },
+  item02: {
+    title: "Pear",
+    color: "green"
+  },
+  item03: {
+    title: "Plum",
+    color: "blue",
+    type: "refrigerate"
+  },
+  item04: {
+    title: "Orange",
+    color: "orange"
+  }
+}</pre>
+					</div>
+				</div>
+				<div class="GroupContentItem">
+					<h3>Template(s)</h3>
+<pre>
+&lt;div style="border: 2px solid %%color%%"&gt;
+  &lt;h1&gt;%%title%%&lt;/h1&gt;
+  &lt;p&gt;should be eaten...&lt;/p&gt;
+&lt;/div&gt;
+&lt;div style="border:2px solid %%color%%" data-type="refrigerate"&gt;
+  &lt;h1&gt;%%title%%&lt;/h1&gt;
+  &lt;p&gt;should be refrigerated...&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+					<div id="Root03" class="Root">
+						<!-- template -->
+						<div style="border:2px solid %%color%%">
+							<h1>%%title%%</h1>
+							<p>should be eaten...</p>
+						</div>
+						<!-- template -->
+						<div style="border:2px solid %%color%%" data-type="refrigerate">
+							<h1>%%title%%</h1>
+							<p>should be refrigerated...</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer>// Designed by Vit Janota //</footer>
+	</body>
+</html>
