@@ -4,6 +4,10 @@ function templatingFactory() {
     this.templates = [];
     this.data = {};
     this.anchor = {};
+    // list of "service" attributes which should not be outputted
+    this.attributesToRemove = ["data-type"];
+    // list of attributes which shoud be outputted without "data-" prefix (because 'some' browsers remove invalid attr values)
+    this.attributesToAlter = ["data-style"];
 
     // populate factory
     this.populate = function(templates, data, anchor) {
@@ -65,7 +69,7 @@ function templatingFactory() {
 
     // itarate through template DOM and update all elements and text nodes
     this.processTemplate = function(element, data) {
-        var attributes, children, dataSubset;
+        var attributes, children, dataSubset, newVal, newName;
         switch (element[0].nodeType) {
             //tag
             case 1:
@@ -73,11 +77,21 @@ function templatingFactory() {
                 if (!element.attr("data-for-each")) {
                     attributes =  element[0].attributes;
                     children = element[0].childNodes;
-                    //update all attributes values (and remove internal type attribute)
+                    // update attributes
                     for (var j = 0; j < attributes.length; j++) {
-                        if (attributes[j].name === "data-type") {
+                        // remove attributes configured to be removed
+                        if (attributes[j].name.indexOf(this.attributesToRemove) !== -1) {
                             element.removeAttr(attributes[j].name);
-                        } else {
+                        // alter attributes configured to be altered and update their values
+                        } else if (attributes[j].name.indexOf(this.attributesToAlter) !== -1) {
+                            // because of 'some' browsers values cannot be used directly, but stored into variables prior processing 
+                            newVal = this.updateValue(element.attr(attributes[j].name),data);
+                            newName = attributes[j].name.replace("data-","");
+                            element.removeAttr(attributes[j].name);
+                            element.attr(newName,newVal);
+                        }
+                        // update values of remaining attributes
+                        else {
                             element.attr(attributes[j].name, this.updateValue(element.attr(attributes[j].name),data));
                         }
                     }
