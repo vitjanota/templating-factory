@@ -26,7 +26,7 @@
 - if `root` is specified all its children are automatically considered as templates and as anchor is used the very last of them.
 
 ## Inner repetitive processing
-- data entry can contain list of subentries which can be processed within given templated the same way.
+- data entry can contain list of subentries which can be processed within given template the same way.
 - particular sub-template has to be denoted by `data-for-each` attribute with value equal to corresponding list key.
 
 ## Data - template binding
