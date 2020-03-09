@@ -34,3 +34,8 @@
 - however particular template can be bound to particular data entries via *type*: template with `data-type` attribute specified is used exclusively for data entries with `type` attribute of the same value.
 - if no such template is present, all data is processed by default templates regardless of their type.
 - template *type* can contain space separated list of types.
+
+## Attributes processing configuration
+
+- service attributes, such as `data-type` can be configured not to appear on output. Their name just needs to be added into `attributesToRemove` list. 
+- as 'some' browsers automatically remove invalid attribute values, placeholders needn't to work for them in some cases. For example in inline styles. Such attributes can be defined with *data-* prefix and configured for outputting without it, which fixes the issue. Just add their full name (with prefix) into `attributesToAlter` list.
