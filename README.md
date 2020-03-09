@@ -32,5 +32,5 @@
 ## Data - template binding
 - this is just a view. No conditional logic in placeholders selection. All data logic needs to be done on backend.
 - however particular template can be bound to particular data entries via *type*: template with `data-type` attribute specified is used exclusively for data entries with `type` attribute of the same value.
-- if no such template is present, all data is processed by default templates.
+- if no such template is present, all data is processed by default templates regardless of their type.
 - template *type* can contain space separated list of types.
