@@ -5,9 +5,12 @@
 ## Overview
 
 - simple library for easy JSON data presentation.
-- so far based on jQuery.
 - updates page elements denoted as *templates* with values from JSON data.
 - for each data entry new instance of template is created and all placeholders (wrapped in %%) present in template are replaced by corresponding values from JSON data entry (placeholder name represents a key in JSON key/value pairs).
+
+## Dependences
+
+- so far based on jQuery.
 
 ## Usage
 
