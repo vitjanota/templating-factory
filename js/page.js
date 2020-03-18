@@ -5,7 +5,7 @@ $(document).ready(function(){
     });
 });
 
-var factory = new templatingFactory(), //initiate templating factory
+var factory = new TemplatingFactory(), //initiate templating factory
 	//example 1 data
 	exampleData01 = {
 		item01: {

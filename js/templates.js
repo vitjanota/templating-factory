@@ -1,5 +1,5 @@
 // ======================== templating factory ========================
-function templatingFactory() {
+function TemplatingFactory() {
 
     this.templates = [];
     this.data = {};
@@ -108,7 +108,7 @@ function templatingFactory() {
                     }
                     element.attr("data-type","default").removeAttr("data-for-each");
                     // start processing
-                    let inner = new templatingFactory();
+                    let inner = new TemplatingFactory();
                     inner.populate([element], dataSubset);
                     inner.renderData();
                     inner.removeTemplates();

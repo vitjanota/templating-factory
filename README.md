@@ -16,7 +16,7 @@
 
 - link `templates.js` into your page, define templates and create/fetch data.
 - invoke templating factory by\
-`factory = new templatingFactory();`
+`factory = new TemplatingFactory();`
 - start processing either by full init\
 `factory.populate([templates],data,anchor);`\
 `factory.renderData();`
