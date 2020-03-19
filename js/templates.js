@@ -69,7 +69,7 @@ function TemplatingFactory() {
 
     // itarate through template DOM and update all elements and text nodes
     this.processTemplate = function(element, data) {
-        var attributes, children, dataSubset, newVal, newName;
+        var attributes, children, dataSubset, newVal, newName, inner;
         switch (element[0].nodeType) {
             //tag
             case 1:
@@ -108,7 +108,7 @@ function TemplatingFactory() {
                     }
                     element.attr("data-type","default").removeAttr("data-for-each");
                     // start processing
-                    let inner = new TemplatingFactory();
+                    inner = new TemplatingFactory();
                     inner.populate([element], dataSubset);
                     inner.renderData();
                     inner.removeTemplates();
