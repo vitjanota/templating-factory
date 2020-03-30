@@ -2,7 +2,7 @@
 
 > If even the simplest framework is an overkill.
 
-version 0.1
+version 0.2
 
 ## Overview
 
@@ -27,15 +27,20 @@ version 0.1
 - `[templates]` is an array of jQuery objects representing particular templates and `anchor` is jQuery object representing element after which newly created content is placed.
 - if `root` is specified all its children are automatically considered as templates and as anchor is used the very last of them.
 
-## Inner processing
-- data entry can contain list of subentries which can be processed within given template the same way.
-- particular sub-template has to be denoted by `data-for-each` attribute with value equal to corresponding list key.
-
 ## Data - template binding
 - this is just a view. No conditional logic in placeholders selection. All data logic needs to be done on backend.
 - however particular template can be bound to particular data entries via *type*: template with `data-type` attribute specified is used exclusively for data entries with `type` attribute of the same value.
 - if no such template is present, all data is processed by default templates regardless of their type.
 - template *type* can contain space separated list of types.
+
+## Inner processing
+- data entry can contain list of subentries which can be processed within given template the same way.
+
+### data-for-each
+- if a particular element itself should become a template for sub-data processing it has to be denoted by `data-for-each` attribute with value equal to corresponding list key.
+
+### data-for-each-wrapper
+- if children of a particular element should become templates for sub-data processing (element represents new root) it has to be denoted by `data-for-each-wrapper` attribute with value equal to corresponding list key. For sub-templates data - templates binding can be used the same way as for main templates.
 
 ## Attributes processing configuration
 
