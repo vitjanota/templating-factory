@@ -1,3 +1,10 @@
+var processCtrl = {
+	1: true,
+	2: true,
+	3: true,
+	4: true
+};
+
 // bind functionality to processing buttons
 $(document).ready(function(){
     $(".Button").click(function(event) {
@@ -70,20 +77,49 @@ var factory = new TemplatingFactory(), //initiate templating factory
 			title: "Orange",
 			color: "orange"
 		}
+	},
+	//example 4 data
+	exampleData04 = {
+		item01: {
+			color: "blue",
+			text: {
+				text01: {content: "This example shows how text with inner formatting like "},
+				text02: {content: "bold", type: "emph"},
+				text03: {content: ", "},
+				text04: {content: "italic", type: "slant"},
+				text05: {content: ", "},
+				text06: {url: "#", content: "link", type: "link"},
+				text07: {content: " and others can be processed."}
+			}
+		}
 	};
 
 // start procesing for specified example
 function runExample(idx) {
 	switch (idx) {
-		case "01":
-			factory.renderRoot($("#Root01"),exampleData01);
+		case "1":
+			if (processCtrl[idx]) {
+				factory.renderRoot($("#Root01"),exampleData01);
+				processCtrl[idx] = false;
+			}
 			break;
-		case "02":
-			factory.renderRoot($("#Root02"),exampleData02);
+		case "2":
+			if (processCtrl[idx]) {
+				factory.renderRoot($("#Root02"),exampleData02);
+				processCtrl[idx] = false;
+			}
 			break;
-		case "03":
-			factory.renderRoot($("#Root03"),exampleData03);
+		case "3":
+			if (processCtrl[idx]) {
+				factory.renderRoot($("#Root03"),exampleData03);
+				processCtrl[idx] = false;
+			}
+			break;
+		case "4":
+			if (processCtrl[idx]) {
+				factory.renderRoot($("#Root04"),exampleData04);
+				processCtrl[idx] = false;
+			}
 			break;
 	}
-
 }

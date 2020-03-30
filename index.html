@@ -18,7 +18,7 @@
 				<p>
 					The simplest setup possible: one template, one data entry
 					<br/><br/>
-					<div class="Button" data-ref="01"></div>
+					<div class="Button" data-ref="1"></div>
 				</p>
 			</div>
 			<div class="GroupContent">
@@ -57,9 +57,9 @@
 			<div class="GroupTitle">
 				<h2>Example 2</h2>
 				<p>
-					Template with repetitive data inside and two data entries to process
+					Template with repetitive data inside (usage of <i>for-each</i> directive) and two data entries to process
 					<br/><br/>
-					<div class="Button" data-ref="02"></div>
+					<div class="Button" data-ref="2"></div>
 				</p>
 			</div>
 			<div class="GroupContent">
@@ -139,7 +139,7 @@
 				<p>
 					Setup with template selection based on data type
 					<br/><br/>
-					<div class="Button" data-ref="03"></div>
+					<div class="Button" data-ref="3"></div>
 				</p>
 			</div>
 			<div class="GroupContent">
@@ -189,6 +189,64 @@
 						<div style="border:2px solid %%color%%" data-type="refrigerate">
 							<h1>%%title%%</h1>
 							<p>should be refrigerated...</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+				<section class="Group">
+			<div class="GroupTitle">
+				<h2>Example 4</h2>
+				<p>
+					Simple setup for rich text formatting (usage of <i>for-each-wrapper</i> directive)
+					<br/><br/>
+					<div class="Button" data-ref="4"></div>
+				</p>
+			</div>
+			<div class="GroupContent">
+				<div class="GroupContentItem">
+					<h3>Data</h3>
+					<div>
+<pre>{
+  item01: {
+    color: "blue",
+    text: {
+      text01: {content: "This example
+              shows how text with
+              inner formatting like "},
+      text02: {content: "bold",
+              type: "emph"},
+      text03: {content: ", "},
+      text04: {content: "italic",
+              type: "slant"},
+      text05: {content: ", "},
+      text06: {url: "#",
+              content: "link",
+              type: "link"},
+      text07: {content: " and others
+              can be processed."}
+    }
+}</pre>
+					</div>
+				</div>
+				<div class="GroupContentItem">
+					<h3>Template(s)</h3>
+<pre>
+&lt;div style="border:2px solid %%color%%"
+     data-for-each-wrapper="text"&gt;
+  &lt;span&gt;%%title%%&lt;/span&gt;
+  &lt;b data-type="emph"&gt;%%content%%&lt;/b&gt;
+  &lt;i data-type="slant"&gt;%%content%%&lt;/i&gt;
+  &lt;a href="%%url%%" data-type="link"&gt;%%content%%&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+					<div id="Root04" class="Root">
+						<!-- template -->
+						<div style="border:2px solid %%color%%" data-for-each-wrapper="text">
+							<span>%%content%%</span>
+							<b data-type="emph">%%content%%</b>
+							<i data-type="slant">%%content%%</i>
+							<a href="%%url%%" data-type="link">%%content%%</a>
 						</div>
 					</div>
 				</div>
