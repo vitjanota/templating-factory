@@ -1,5 +1,5 @@
 // ======================== templating factory ========================
-// version 0.1
+// version 0.2
 function TemplatingFactory() {
 
     this.templates = [];
@@ -70,7 +70,7 @@ function TemplatingFactory() {
 
     // itarate through template DOM and update all elements and text nodes
     this.processTemplate = function(element, data) {
-        var attributes, children, dataSubset, newVal, newName, inner;
+        var attributes, children, child = {}, dataSubset, templates = [], newVal, newName, inner, key;
         switch (element[0].nodeType) {
             //tag
             case 1:
@@ -96,15 +96,36 @@ function TemplatingFactory() {
                             element.attr(attributes[j].name, this.updateValue(element.attr(attributes[j].name),data));
                         }
                     }
-                    //proceed with all children
-                    for (var k = 0; k < children.length; k++) {
-                        this.processTemplate($(children[k]),data);
+                    if (element.attr("data-for-each-wrapper")) {
+                        // if element is set as a wrapper for loop processing
+                        // start loop procssing on its children
+                        dataSubset = data[element.attr("data-for-each-wrapper")];
+                        // set undefined type to default on data
+                        for (key in dataSubset) {
+                            if (!dataSubset[key].type) dataSubset[key].type = "default";
+                        }
+                        // set undefined type as default and store all templates
+                        for (var i = 0; i < element.children().length; i++) {
+                            child = $(element.children()[i]);
+                            if (!child.attr("data-type")) child.attr("data-type","default");
+                            templates.push(child);
+                        }
+                        // start processing
+                        inner = new TemplatingFactory();
+                        inner.populate(templates, dataSubset);
+                        inner.renderData();
+                        inner.removeTemplates();
+                    } else {
+                        //proceed with all children
+                        for (var k = 0; k < children.length; k++) {
+                            this.processTemplate($(children[k]),data);
+                        }
                     }
                 } else {
                     // set both template and data to default processing type
                     // and remove loop processing flag to avoid endless recursion 
                     dataSubset = data[element.attr("data-for-each")];
-                    for (var key in dataSubset) {
+                    for (key in dataSubset) {
                         dataSubset[key].type = "default";
                     }
                     element.attr("data-type","default").removeAttr("data-for-each");
