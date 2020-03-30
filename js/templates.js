@@ -48,10 +48,10 @@ function TemplatingFactory() {
             });
             this.templates.forEach(function(template) {
                 // if template type is of data type use it
-                if (template.attr("data-type").indexOf(type) !== -1) {
+                if (template.attr("data-type").split(" ").indexOf(type) !== -1) {
                     that.renderTemplate(template.clone(true),that.data[key]);
                     // use default template only if no data type tempalte exists
-                } else if (template.attr("data-type").indexOf("default") !== -1 && $.inArray(type, types) === -1) {
+                } else if (template.attr("data-type").split(" ").indexOf("default") !== -1 && $.inArray(type, types) === -1) {
                     that.renderTemplate(template.clone(true),that.data[key]);
                 }
             });
