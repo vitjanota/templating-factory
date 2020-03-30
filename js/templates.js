@@ -110,6 +110,7 @@ function TemplatingFactory() {
                             if (!child.attr("data-type")) child.attr("data-type","default");
                             templates.push(child);
                         }
+                        element.removeAttr("data-for-each-wrapper");
                         // start processing
                         inner = new TemplatingFactory();
                         inner.populate(templates, dataSubset);
