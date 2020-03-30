@@ -1,4 +1,5 @@
 // ======================== templating factory ========================
+// version 0.1
 function TemplatingFactory() {
 
     this.templates = [];

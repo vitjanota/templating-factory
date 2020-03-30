@@ -2,6 +2,8 @@
 
 > If even the simplest framework is an overkill.
 
+version 0.1
+
 ## Overview
 
 - simple library for easy JSON data presentation.
