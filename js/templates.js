@@ -78,22 +78,25 @@ function TemplatingFactory() {
                 if (!element.attr("data-for-each")) {
                     attributes =  element[0].attributes;
                     children = element[0].childNodes;
+                    for (var m = 0; m < attributes.length; m++) {
+                        // remove attributes configured to be removed
+                        if (attributes[m].name.indexOf(this.attributesToRemove) !== -1) {
+                            element.removeAttr(attributes[m].name);
+                        }
+                    }
                     // update attributes
                     for (var j = 0; j < attributes.length; j++) {
-                        // remove attributes configured to be removed
-                        if (attributes[j].name.indexOf(this.attributesToRemove) !== -1) {
-                            element.removeAttr(attributes[j].name);
-                        // alter attributes configured to be altered and update their values
-                        } else if (attributes[j].name.indexOf(this.attributesToAlter) !== -1) {
+                        // update values of all attributes
+                        element.attr(attributes[j].name, this.updateValue(element.attr(attributes[j].name),data));
+                    }
+                    for (var l = 0; l < attributes.length; l++) {
+                        // alter attributes configured to be altered
+                        if (attributes[l].name.indexOf(this.attributesToAlter) !== -1) {
                             // because of 'some' browsers values cannot be used directly, but stored into variables prior processing 
-                            newVal = this.updateValue(element.attr(attributes[j].name),data);
-                            newName = attributes[j].name.replace("data-","");
-                            element.removeAttr(attributes[j].name);
+                            newVal = element.attr(attributes[l].name);
+                            newName = attributes[l].name.replace("data-","");
+                            element.removeAttr(attributes[l].name);
                             element.attr(newName,newVal);
-                        }
-                        // update values of remaining attributes
-                        else {
-                            element.attr(attributes[j].name, this.updateValue(element.attr(attributes[j].name),data));
                         }
                     }
                     if (element.attr("data-for-each-wrapper")) {
