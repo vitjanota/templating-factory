@@ -102,7 +102,7 @@ function TemplatingFactory() {
                     if (element.attr("data-for-each-wrapper")) {
                         // if element is set as a wrapper for loop processing
                         // start loop procssing on its children
-                        dataSubset = data[element.attr("data-for-each-wrapper")];
+                        dataSubset = JSON.parse(JSON.stringify(data[element.attr("data-for-each-wrapper")]));
                         // set undefined type to default on data
                         for (key in dataSubset) {
                             if (!dataSubset[key].type) dataSubset[key].type = "default";
@@ -128,7 +128,7 @@ function TemplatingFactory() {
                 } else {
                     // set both template and data to default processing type
                     // and remove loop processing flag to avoid endless recursion 
-                    dataSubset = data[element.attr("data-for-each")];
+                    dataSubset = JSON.parse(JSON.stringify(data[element.attr("data-for-each")]));
                     for (key in dataSubset) {
                         dataSubset[key].type = "default";
                     }
