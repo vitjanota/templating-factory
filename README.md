@@ -24,7 +24,7 @@ version 0.4
 `factory.renderData();`
 - or via simplified method (covering the most common user case)\
 `facory.renderRoot(root,data);`
-- `[templates]` is an array of jQuery objects representing particular templates and `anchor` is jQuery object representing element after which newly created content is placed.
+- `[templates]` is an array of DOM elements representing particular templates and `anchor` is DOM element representing place after which newly created content is placed.
 - if `root` is specified all its children are automatically considered as templates and as anchor is used the very last of them.
 
 ## Data - template binding
