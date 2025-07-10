@@ -17,7 +17,7 @@ function TemplatingFactory() {
         this.templates = [];
         templates.forEach((template) => {
             // undefined type set as default and store all templates
-            if (!template.attr('data-type')) template.attr('data-type','default');
+            if (!template.getAttribute('data-type')) template.setAttribute('data-type','default');
             that.templates.push(template);
         });
         // if rendering anchor is not defined, place result after the last template by default
@@ -26,8 +26,7 @@ function TemplatingFactory() {
 
     // automatic factory setup
     this.renderRoot = (root, data) => {
-        const children = [...root.children()];
-        const templates = children.map(child => $(child));
+        const templates = [...root.children];
         this.populate(templates, data);
         this.renderData();
     };
@@ -54,17 +53,18 @@ function TemplatingFactory() {
         // store all available template types
         let types = [];
         this.templates.forEach((template) => {
-            template.attr('data-type').split(' ').forEach((tp) => {
+            template.getAttribute('data-type').split(' ').forEach((tp) => {
                 types.push(tp);
             });
         });
        //process data with matching templates
        this.templates.forEach((template) => {
-          const templtypes = template.attr('data-type').split(' ');
+          const templtypes = template.getAttribute('data-type').split(' ');
           // use type template if matches data type
           // use dafault template if no type template matching data type exists
-          if ((templtypes.indexOf(data.type) !== -1) || (templtypes.indexOf('default') !== -1 && $.inArray(data.type, types) === -1)) {
-             that.renderTemplate(template.clone(true),data);
+          // if ((templtypes.indexOf(data.type) !== -1) || (templtypes.indexOf('default') !== -1 && $.inArray(data.type, types) === -1)) {
+          if ((templtypes.indexOf(data.type) !== -1) || (templtypes.indexOf('default') !== -1 && types.indexOf(data.type) === -1)) {
+             that.renderTemplate(template.cloneNode(true),data);
           }
       });
     }
@@ -73,58 +73,58 @@ function TemplatingFactory() {
     this.renderTemplate = (template, data) => {
         let rendered = this.processTemplate(template,data);
         this.anchor.after(rendered);
-        rendered.css('visibility','visible');
+        rendered.style.visibility ='visible';
         this.anchor = rendered;
     };
 
     // itarate through template DOM and update all elements and text nodes
     this.processTemplate = (element, data) => {
         let attributes, children, child = {}, dataSubset = {}, templates = [], newVal, newName, inner, key;
-        switch (element[0].nodeType) {
+        switch (element.nodeType) {
             //tag
             case 1:
                 // is loop processing defined for given element?
-                if (!element.attr('data-for-each')) {
-                    attributes =  element[0].attributes;
-                    children = element[0].childNodes;
-                    for (var m = 0; m < attributes.length; m++) {
+                if (!element.getAttribute('data-for-each')) {
+                    attributes =  element.attributes;
+                    children = element.childNodes;
+                    for (let m = 0; m < attributes.length; m++) {
                         // remove attributes configured to be removed
                         if (attributes[m].name.indexOf(this.attributesToRemove) !== -1) {
-                            element.removeAttr(attributes[m].name);
+                            element.removeAttribute(attributes[m].name);
                         }
                     }
                     // update attributes
-                    for (var j = 0; j < attributes.length; j++) {
+                    for (let j = 0; j < attributes.length; j++) {
                         // update values of all attributes
-                        element.attr(attributes[j].name, this.updateValue(element.attr(attributes[j].name),data));
+                        element.setAttribute(attributes[j].name, this.updateValue(element.getAttribute(attributes[j].name),data));
                     }
-                    for (var l = 0; l < attributes.length; l++) {
+                    for (let l = 0; l < attributes.length; l++) {
                         // alter attributes configured to be altered
                         if (attributes[l].name.indexOf(this.attributesToAlter) !== -1) {
                             // because of 'some' browsers values cannot be used directly, but stored into variables prior processing 
-                            newVal = element.attr(attributes[l].name);
+                            newVal = element.getAttribute(attributes[l].name);
                             newName = attributes[l].name.replace('data-','');
-                            element.removeAttr(attributes[l].name);
-                            element.attr(newName,newVal);
+                            element.removeAttribute(attributes[l].name);
+                            element.setAttribute(newName,newVal);
                         }
                     }
-                    if (element.attr('data-process')) {
+                    if (element.getAttribute('data-process')) {
                         // if element is set as a wrapper for loop processing
                         // start loop procssing on its children
-                        if (data[element.attr('data-process')]) {
-                          dataSubset = JSON.parse(JSON.stringify(data[element.attr('data-process')]));
+                        if (data[element.getAttribute('data-process')]) {
+                          dataSubset = JSON.parse(JSON.stringify(data[element.getAttribute('data-process')]));
                         }
                         // set undefined type to default on data
                         for (key in dataSubset) {
                             if (!dataSubset[key].type) dataSubset[key].type = 'default';
                         }
                         // set undefined type as default and store all templates
-                        for (var i = 0; i < element.children().length; i++) {
-                            child = $(element.children()[i]);
-                            if (!child.attr('data-type')) child.attr('data-type','default');
+                        for (let i = 0; i < element.children.length; i++) {
+                            child = element.children[i];
+                            if (!child.getAttribute('data-type')) child.setAttribute('data-type','default');
                             templates.push(child);
                         }
-                        element.removeAttr('data-process');
+                        element.removeAttribute('data-process');
                         // start processing
                         inner = new TemplatingFactory();
                         inner.populate(templates, dataSubset);
@@ -132,20 +132,21 @@ function TemplatingFactory() {
                         inner.removeTemplates();
                     } else {
                         //proceed with all children
-                        for (var k = 0; k < children.length; k++) {
-                            this.processTemplate($(children[k]),data);
+                        for (let k = 0; k < children.length; k++) {
+                            this.processTemplate(children[k],data);
                         }
                     }
                 } else {
                     // set both template and data to default processing type
                     // and remove loop processing flag to avoid endless recursion 
-                    if (data[element.attr('data-for-each')]) {
-                      dataSubset = JSON.parse(JSON.stringify(data[element.attr('data-for-each')]));
+                    if (data[element.getAttribute('data-for-each')]) {
+                      dataSubset = JSON.parse(JSON.stringify(data[element.getAttribute('data-for-each')]));
                       for (key in dataSubset) {
                         dataSubset[key].type = 'default';
                       }
                     }
-                    element.attr('data-type','default').removeAttr('data-for-each');
+                    element.setAttribute('data-type','default');
+                    element.removeAttribute('data-for-each');
                     // start processing
                     inner = new TemplatingFactory();
                     inner.populate([element], dataSubset);
@@ -156,7 +157,7 @@ function TemplatingFactory() {
             //text 
             case 3:
                 //update value
-                element[0].data = this.updateValue(element[0].data,data);
+                element.data = this.updateValue(element.data,data);
                 break;
             }
         return element;

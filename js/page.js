@@ -1,4 +1,15 @@
-var processCtrl = {
+// bind functionality to processing buttons
+document.addEventListener("DOMContentLoaded", () => {
+    let buttons = document.getElementsByClassName("Button");
+    for (let idx = 0; idx < buttons.length; idx++) {
+      buttons[idx].onclick = (event) => {
+		    runExample(event.target.getAttribute("data-ref"));
+      };
+    }
+});
+
+// set controls for examples rendering
+let processCtrl = {
 	1: true,
   2: true,
 	3: true,
@@ -7,16 +18,13 @@ var processCtrl = {
 	6: true
 };
 
-// bind functionality to processing buttons
-$(document).ready(function(){
-    $(".Button").click(function(event) {
-		runExample($(this).attr("data-ref"));
-    });
-});
+//initiate templating factory
+let factory = new TemplatingFactory();
 
-var factory = new TemplatingFactory(), //initiate templating factory
+//set example data
+let exampleData = {
 	//example 1 data
-	exampleData01 = {
+	example1: {
 		item01: {
 			title: "Hello World!",
 			text: "my templating engine",
@@ -24,7 +32,7 @@ var factory = new TemplatingFactory(), //initiate templating factory
 		}
 	},
   //example 2 data
-  exampleData02 = [
+  example2: [
 		{
 			title: "Hello World!!",
 			text: "my templating engine",
@@ -32,7 +40,7 @@ var factory = new TemplatingFactory(), //initiate templating factory
 		}
  ],
 	//example 3 data
-	exampleData03 = {
+	example3: {
 		item01: {
 			title: "Fruits",
 			text: "Among fruits belong",
@@ -69,7 +77,7 @@ var factory = new TemplatingFactory(), //initiate templating factory
 		}
 	},
 	//example 4 data
-	exampleData04 = {
+	example4: {
 		item01: {
 			title: "Apple",
 			color: "red"
@@ -89,7 +97,7 @@ var factory = new TemplatingFactory(), //initiate templating factory
 		}
 	},
 	//example 5 data
-  exampleData05 = {
+  example5: {
 		par: {
 			color: "blue",
 			content: [
@@ -104,7 +112,7 @@ var factory = new TemplatingFactory(), //initiate templating factory
 		}
 	},
   //example 6 data
-  exampleData06 = {
+  example6: {
     table: {
       header: [
         {
@@ -137,46 +145,13 @@ var factory = new TemplatingFactory(), //initiate templating factory
         }
       ]
     }
-  };
+  }
+};
 
-// start procesing for specified example
+// procesing specified example
 function runExample(idx) {
-	switch (idx) {
-		case "1":
-			if (processCtrl[idx]) {
-				factory.renderRoot($("#Root01"),exampleData01);
-				processCtrl[idx] = false;
-			}
-			break;
-		case "2":
-			if (processCtrl[idx]) {
-				factory.renderRoot($("#Root02"),exampleData02);
-				processCtrl[idx] = false;
-			}
-			break;
-		case "3":
-			if (processCtrl[idx]) {
-				factory.renderRoot($("#Root03"),exampleData03);
-				processCtrl[idx] = false;
-			}
-			break;
-		case "4":
-			if (processCtrl[idx]) {
-				factory.renderRoot($("#Root04"),exampleData04);
-				processCtrl[idx] = false;
-			}
-			break;
-    case "5":
-			if (processCtrl[idx]) {
-				factory.renderRoot($("#Root05"),exampleData05);
-				processCtrl[idx] = false;
-			}
-			break;
-    case "6":
-			if (processCtrl[idx]) {
-				factory.renderRoot($("#Root06"),exampleData06);
-				processCtrl[idx] = false;
-			}
-			break;
+  if (processCtrl[idx]) {
+			factory.renderRoot(document.getElementById(`Root${idx}`),exampleData[`example${idx}`]);
+			processCtrl[idx] = false;
 	}
 }

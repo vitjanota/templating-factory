@@ -2,7 +2,7 @@
 
 > If even the simplest framework is an overkill.
 
-version 0.3
+version 0.4
 
 ## Overview
 
@@ -12,7 +12,7 @@ version 0.3
 
 ## Dependences
 
-- so far based on jQuery.
+- none
 
 ## Usage
 
