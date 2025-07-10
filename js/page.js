@@ -107,7 +107,11 @@ let exampleData = {
 				{text: "italic", type: "slant"},
 				{text: ", "},
 				{text: "link", url: "#", type: "link"},
-			  {text: " and others can be processed."}
+			  {text: " and others can be processed."},
+        {type: 'lbr'},
+        {type: 'lbr'},
+        {text: "And don't forget: "},
+        {text: "This is data driven!", type: "emph"}
       ]
 		}
 	},
