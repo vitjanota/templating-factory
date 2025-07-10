@@ -2,7 +2,7 @@
 
 > If even the simplest framework is an overkill.
 
-version 0.2
+version 0.3
 
 ## Overview
 
@@ -39,8 +39,8 @@ version 0.2
 ### data-for-each
 - if a particular element itself should become a template for sub-data processing it has to be denoted by `data-for-each` attribute with value equal to corresponding list key.
 
-### data-for-each-wrapper
-- if children of a particular element should become templates for sub-data processing (element represents new root) it has to be denoted by `data-for-each-wrapper` attribute with value equal to corresponding list key. For sub-templates data - templates binding can be used the same way as for main templates.
+### data-process
+- if children of a particular element should become templates for sub-data processing (element represents new root) it has to be denoted by `data-process` attribute with value equal to corresponding list key. For sub-templates data - templates binding can be used the same way as for main templates.
 
 ## Attributes processing configuration
 

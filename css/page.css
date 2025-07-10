@@ -92,6 +92,21 @@ footer {
   background-color: #e9f5ff;
 }
 
+.Root table {
+  border-collapse: collapse;
+}
+
+.Root table td, .Root table th {
+  border: 1px solid;
+  padding: 3px 10px 3px 10px;
+}
+
+.Root table tfoot td {
+  border: 1px solid;
+  padding: 3px 10px 3px 10px;
+  font-style: italic;
+}
+
 .Root div h1 {
   margin: 0 0 10px 0;
 }

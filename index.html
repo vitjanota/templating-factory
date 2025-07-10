@@ -16,7 +16,7 @@
 			<div class="GroupTitle">
 				<h2>Example 1</h2>
 				<p>
-					The simplest setup possible: one template, one data entry
+					The simplest setup possible: one template, one data entry as object
 					<br/><br/>
 					<div class="Button" data-ref="1"></div>
 				</p>
@@ -57,9 +57,50 @@
 			<div class="GroupTitle">
 				<h2>Example 2</h2>
 				<p>
-					Template with repetitive data inside (usage of <i>for-each</i> directive) and two data entries to process
+					The simplest setup possible: one template, one data entry as array
 					<br/><br/>
 					<div class="Button" data-ref="2"></div>
+				</p>
+			</div>
+			<div class="GroupContent">
+				<div class="GroupContentItem">
+					<h3>Data</h3>
+					<div>						
+<pre>[
+  {
+    title: "Hello World!!",
+    text: "my templating engine",
+    color: "green"
+  }
+]</pre>
+					</div>
+				</div>
+				<div class="GroupContentItem">
+					<h3>Template(s)</h3>
+<pre>
+&lt;div style="border: 2px solid %%color%%"&gt;
+  &lt;h1&gt;%%title%%&lt;/h1&gt;
+  &lt;p&gt;This content was added by %%text%%.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+					<div id="Root02" class="Root">
+						<!-- template -->
+						<div style="border:2px solid %%color%%">
+							<h1>%%title%%</h1>
+							<p>This content was added by %%text%%.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Example 3 -->
+		<section class="Group">
+			<div class="GroupTitle">
+				<h2>Example 3</h2>
+				<p>
+					Template with repetitive data inside (usage of <i>for-each</i> directive) and two data entries to process
+					<br/><br/>
+					<div class="Button" data-ref="3"></div>
 				</p>
 			</div>
 			<div class="GroupContent">
@@ -71,35 +112,35 @@
     title: "Fruits",
     text: "Among fruits belong",
     color: "red",
-    list: {
-      listitem01:{
+    list: [
+      {
         content:"apple",
         color: "#e0c900"
       },
-      listitem02:{
+      {
         content:"orange",
         color: "orange"
       }
-    }
+    ]
   },
   item02: {
     title: "Vegetables",
     text: "Among vegetables belong",
     color: "green",
-    list: {
-      listitem01:{
+    list: [
+      {
         content:"carrot",
         color: "orange"
       },
-      listitem02:{
+      {
         content:"tomato",
         color: "red"
       },
-      listitem03:{
+      {
         content:"cucumber",
         color: "green"
       }
-    }
+    ]
   }
 }</pre>
 					</div>
@@ -118,7 +159,7 @@
   &lt;p>and many more.&lt;/p&gt;
 &lt;/div&gt;
 </pre>
-					<div id="Root02" class="Root">
+					<div id="Root03" class="Root">
 						<!-- template -->
 						<div style="border:2px solid %%color%%">
 							<h1>%%title%%</h1>
@@ -132,14 +173,14 @@
 				</div>
 			</div>
 		</section>
-		<!-- Example 3 -->
+		<!-- Example 4 -->
 		<section class="Group">
 			<div class="GroupTitle">
-				<h2>Example 3</h2>
+				<h2>Example 4</h2>
 				<p>
 					Setup with template selection based on data type
 					<br/><br/>
-					<div class="Button" data-ref="3"></div>
+					<div class="Button" data-ref="4"></div>
 				</p>
 			</div>
 			<div class="GroupContent">
@@ -179,7 +220,7 @@
   &lt;p&gt;should be refrigerated...&lt;/p&gt;
 &lt;/div&gt;
 </pre>
-					<div id="Root03" class="Root">
+					<div id="Root04" class="Root">
 						<!-- template -->
 						<div style="border:2px solid %%color%%">
 							<h1>%%title%%</h1>
@@ -194,13 +235,14 @@
 				</div>
 			</div>
 		</section>
-				<section class="Group">
+    <!-- Example 5 -->
+		<section class="Group">
 			<div class="GroupTitle">
-				<h2>Example 4</h2>
+				<h2>Example 5</h2>
 				<p>
-					Simple setup for rich text formatting (usage of <i>for-each-wrapper</i> directive)
+					Simple setup for rich text formatting (usage of <i>process</i> directive)
 					<br/><br/>
-					<div class="Button" data-ref="4"></div>
+					<div class="Button" data-ref="5"></div>
 				</p>
 			</div>
 			<div class="GroupContent">
@@ -208,24 +250,24 @@
 					<h3>Data</h3>
 					<div>
 <pre>{
-  item01: {
+  par: {
     color: "blue",
-    text: {
-      text01: {content: "This example
-              shows how text with
-              inner formatting like "},
-      text02: {content: "bold",
-              type: "emph"},
-      text03: {content: ", "},
-      text04: {content: "italic",
-              type: "slant"},
-      text05: {content: ", "},
-      text06: {url: "#",
-              content: "link",
-              type: "link"},
-      text07: {content: " and others
-              can be processed."}
-    }
+    content: [
+      {text: "This example
+        shows how text with
+        inner formatting like "},
+      {text: "bold",
+        type: "emph"},
+      {text: ", "},
+      {text: "italic",
+        type: "slant"},
+      {text: ", "},
+      {text: "link",
+        url: "#",
+        type: "link"},
+      {text: " and others
+        can be processed."}
+  }
 }</pre>
 					</div>
 				</div>
@@ -233,25 +275,125 @@
 					<h3>Template(s)</h3>
 <pre>
 &lt;div style="border:2px solid %%color%%"
-     data-for-each-wrapper="text"&gt;
-  &lt;span&gt;%%content%%&lt;/span&gt;
-  &lt;b data-type="emph"&gt;%%content%%&lt;/b&gt;
-  &lt;i data-type="slant"&gt;%%content%%&lt;/i&gt;
-  &lt;a href="%%url%%" data-type="link"&gt;%%content%%&lt;/a&gt;
+     data-process="content"&gt;
+  &lt;span&gt;%%text%%&lt;/span&gt;
+  &lt;b data-type="emph"&gt;%%text%%&lt;/b&gt;
+  &lt;i data-type="slant"&gt;%%text%%&lt;/i&gt;
+  &lt;a href="%%url%%" data-type="link"&gt;%%text%%&lt;/a&gt;
 &lt;/div&gt;
 </pre>
-					<div id="Root04" class="Root">
+					<div id="Root05" class="Root">
 						<!-- template -->
-						<div style="border:2px solid %%color%%" data-for-each-wrapper="text">
-							<span>%%content%%</span>
-							<b data-type="emph">%%content%%</b>
-							<i data-type="slant">%%content%%</i>
-							<a href="%%url%%" data-type="link">%%content%%</a>
+						<div style="border:2px solid %%color%%" data-process="content">
+							<span>%%text%%</span>
+							<b data-type="emph">%%text%%</b>
+							<i data-type="slant">%%text%%</i>
+							<a href="%%url%%" data-type="link">%%text%%</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
+
+
+    <!-- Example 6 -->
+		<section class="Group">
+			<div class="GroupTitle">
+				<h2>Example 6</h2>
+				<p>
+					Simple table processing
+					<br/><br/>
+					<div class="Button" data-ref="6"></div>
+				</p>
+			</div>
+			<div class="GroupContent">
+				<div class="GroupContentItem">
+					<h3>Data</h3>
+					<div>						
+<pre>{
+    table: {
+      header: [
+        {
+          cells: [
+            {content: 'header 1'},
+            {content: 'header 2'}
+          ]
+        }
+      ],
+      body: [
+        {
+          cells: [
+            {content: 'cell 1.1'},
+            {content: 'cell 1.2'}
+          ]
+        },
+        {
+          cells: [
+            {content: 'cell 2.1'},
+            {content: 'cell 2.2'}
+          ]
+        }
+      ],
+      footer: [
+        {
+          cells: [
+            {content: 'footer 1'},
+            {content: 'footer 2'}
+          ]
+        }
+      ]
+    }
+  }</pre>
+					</div>
+				</div>
+				<div class="GroupContentItem">
+					<h3>Template(s)</h3>
+<pre>
+&lt;table&gt;
+  &lt;thead data-for-each="header"&gt;
+    &lt;tr data-process="cells"&gt;
+      &lt;th&gt;%%content%%&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody data-process="body"&gt;
+    &lt;tr data-process="cells"&gt;
+      &lt;td&gt;%%content%%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot data-for-each="footer"&gt;
+    &lt;tr data-process="cells"&gt;
+      &lt;td&gt;%%content%%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+</pre>
+					<div id="Root06" class="Root">
+						<!-- template -->
+             <table>
+                  <thead data-for-each="header">
+                    <tr data-process="cells">
+                      <th>%%content%%</th>
+                    </tr>
+                  </thead>
+                  <tbody data-process="body">
+                    <tr data-process="cells">
+                      <td>%%content%%</td>
+                    </tr>
+                  </tbody>
+                  <tfoot data-for-each="footer">
+                    <tr data-process="cells">
+                      <td>%%content%%</td>
+                    </tr>
+                  </tfoot>
+             </table>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
 		<footer>// Designed by Vit Janota //</footer>
 	</body>
 </html>

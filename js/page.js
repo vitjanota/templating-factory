@@ -1,8 +1,10 @@
 var processCtrl = {
 	1: true,
-	2: true,
+  2: true,
 	3: true,
-	4: true
+	4: true,
+	5: true,
+	6: true
 };
 
 // bind functionality to processing buttons
@@ -21,45 +23,53 @@ var factory = new TemplatingFactory(), //initiate templating factory
 			color: "black"
 		}
 	},
-	//example 2 data
-	exampleData02 = {
+  //example 2 data
+  exampleData02 = [
+		{
+			title: "Hello World!!",
+			text: "my templating engine",
+			color: "green"
+		}
+ ],
+	//example 3 data
+	exampleData03 = {
 		item01: {
 			title: "Fruits",
 			text: "Among fruits belong",
 			color: "red",
-			list: {
-				listitem01:{
+			list: [
+				{
 					content:"apple",
 					color: "#e0c900"
 				},
-				listitem02:{
+				{
 					content:"orange",
 					color: "orange"
 				}
-			}
+      ]
 		},
 		item02: {
 			title: "Vegetables",
 			text: "Among vegetables belong",
 			color: "green",
-			list: {
-				listitem01:{
+			list: [
+				{
 					content:"carrot",
 					color: "orange"
 				},
-				listitem02:{
+				{
 					content:"tomato",
 					color: "red"
 				},
-				listitem03:{
+				{
 					content:"cucumber",
 					color: "green"
 				}
-			}
+      ]
 		}
 	},
-	//example 3 data
-	exampleData03 = {
+	//example 4 data
+	exampleData04 = {
 		item01: {
 			title: "Apple",
 			color: "red"
@@ -78,21 +88,56 @@ var factory = new TemplatingFactory(), //initiate templating factory
 			color: "orange"
 		}
 	},
-	//example 4 data
-	exampleData04 = {
-		item01: {
+	//example 5 data
+  exampleData05 = {
+		par: {
 			color: "blue",
-			text: {
-				text01: {content: "This example shows how text with inner formatting like "},
-				text02: {content: "bold", type: "emph"},
-				text03: {content: ", "},
-				text04: {content: "italic", type: "slant"},
-				text05: {content: ", "},
-				text06: {url: "#", content: "link", type: "link"},
-				text07: {content: " and others can be processed."}
-			}
+			content: [
+				{text: "This example shows how text with inner formatting like "},
+				{text: "bold", type: "emph"},
+				{text: ", "},
+				{text: "italic", type: "slant"},
+				{text: ", "},
+				{text: "link", url: "#", type: "link"},
+			  {text: " and others can be processed."}
+      ]
 		}
-	};
+	},
+  //example 6 data
+  exampleData06 = {
+    table: {
+      header: [
+        {
+          cells: [
+            {content: 'header 1'},
+            {content: 'header 2'}
+          ]
+        }
+      ],
+      body: [
+        {
+          cells: [
+            {content: 'cell 1.1'},
+            {content: 'cell 1.2'}
+          ]
+        },
+        {
+          cells: [
+            {content: 'cell 2.1'},
+            {content: 'cell 2.2'}
+          ]
+        }
+      ],
+      footer: [
+        {
+          cells: [
+            {content: 'footer 1'},
+            {content: 'footer 2'}
+          ]
+        }
+      ]
+    }
+  };
 
 // start procesing for specified example
 function runExample(idx) {
@@ -118,6 +163,18 @@ function runExample(idx) {
 		case "4":
 			if (processCtrl[idx]) {
 				factory.renderRoot($("#Root04"),exampleData04);
+				processCtrl[idx] = false;
+			}
+			break;
+    case "5":
+			if (processCtrl[idx]) {
+				factory.renderRoot($("#Root05"),exampleData05);
+				processCtrl[idx] = false;
+			}
+			break;
+    case "6":
+			if (processCtrl[idx]) {
+				factory.renderRoot($("#Root06"),exampleData06);
 				processCtrl[idx] = false;
 			}
 			break;
