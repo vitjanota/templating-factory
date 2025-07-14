@@ -83,6 +83,7 @@ function TemplatingFactory() {
             case 1:
                 if (!element.getAttribute('data-for-each')) {
                     // loop processing IS NOT defined for given element
+                    // update attributes
                     const attributes =  element.attributes;
                     for (let m = 0; m < attributes.length; m++) {
                         // remove attributes configured to be removed
@@ -90,7 +91,6 @@ function TemplatingFactory() {
                             element.removeAttribute(attributes[m].name);
                         }
                     }
-                    // update attributes
                     for (let j = 0; j < attributes.length; j++) {
                         // update values of all attributes
                         element.setAttribute(attributes[j].name, this.updateValue(element.getAttribute(attributes[j].name),data));
