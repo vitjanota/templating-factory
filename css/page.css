@@ -83,17 +83,19 @@ footer {
 
 /* ==================== templates ==================== */
 
-.Root div {
+.Root > div {
   border: 2px solid #dddddd;
   margin: 0 0 10px 0;
   padding: 15px 20px 20px 20px;
   width: 350px;
   border-radius: 10px;
   background-color: #e9f5ff;
+  visibility: hidden;
 }
 
 .Root table {
   border-collapse: collapse;
+  visibility: hidden;
 }
 
 .Root table td, .Root table th {
