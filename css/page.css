@@ -143,3 +143,27 @@ footer {
   box-shadow: 1px 1px 4px rgba(0,0,0,.3);
   transform: translateY(3px);
 }
+
+/* ==================== Reset ==================== */
+
+.Reset {
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  margin: 10px;
+  text-align: center;
+  background-color: #dddddd;
+  box-shadow: 2px 3px 4px rgba(0,0,0,.3);
+  border-radius: 10px; 
+}
+
+.Reset:before {
+  position: relative;
+  top: 25%;
+  content: "Reset";
+}
+
+.Reset:active {
+  box-shadow: 1px 1px 4px rgba(0,0,0,.3);
+  transform: translateY(3px);
+}

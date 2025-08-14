@@ -1,17 +1,32 @@
-// bind functionality to processing buttons
+// bind functionality to processing and reset buttons
+// store processing template for further reseting
 document.addEventListener("DOMContentLoaded", () => {
     let buttons = document.getElementsByClassName("Button");
     for (let idx = 0; idx < buttons.length; idx++) {
       buttons[idx].onclick = (event) => {
-		    runExample(event.target.getAttribute("data-ref"));
+		runExample(event.target.getAttribute("data-ref"));
       };
     }
+    let resets = document.getElementsByClassName("Reset");
+    for (let idx = 0; idx < resets.length; idx++) {
+      resets[idx].onclick = (event) => {
+		resetExample(event.target.getAttribute("data-ref"));
+      };
+    }
+    let roots = document.getElementsByClassName("Root");
+    for (let idx = 0; idx < roots.length; idx++) {
+        const tid = roots[idx].getAttribute('id');
+        templates[tid] = [...roots[idx].children];
+    }
 });
+
+// processing template storage
+let templates = {};
 
 // set controls for examples rendering
 let processCtrl = {
 	1: true,
-  2: true,
+    2: true,
 	3: true,
 	4: true,
 	5: true,
@@ -154,8 +169,20 @@ let exampleData = {
 
 // procesing specified example
 function runExample(idx) {
-  if (processCtrl[idx]) {
-			factory.renderRoot(document.getElementById(`Root${idx}`),exampleData[`example${idx}`]);
-			processCtrl[idx] = false;
+    if (processCtrl[idx]) {
+		factory.renderRoot(document.getElementById(`Root${idx}`),exampleData[`example${idx}`]);
+		processCtrl[idx] = false;
+	}
+}
+
+// reseting specified example
+function resetExample(idx) {
+    if (!processCtrl[idx]) {
+        let root = document.getElementById(`Root${idx}`);
+        [...root.children].forEach((elem) => {
+            elem.remove();
+        });
+        root.append(...templates[`Root${idx}`]);
+		processCtrl[idx] = true;
 	}
 }
